@@ -1,0 +1,1 @@
+add_executable(cpp_ray_tracing main.cpp)
