@@ -10,7 +10,7 @@ int main(int argc, char const *argv[])
               << "255\n"
               << std::endl;
 
-    for (int i = 0; i < IMAGE_HEIGHT - 1; i++)
+    for (int i = 0; i < IMAGE_HEIGHT - 1, i >= 0; i++)
     {
         for (int j = 0; j < IMAGE_WIDTH - 1; j++)
         {
