@@ -1,5 +1,7 @@
 #include <iostream>
 
+#include "color.h"
+
 int main(int argc, char const *argv[])
 {
     const int IMAGE_WIDTH = 256;
@@ -14,15 +16,10 @@ int main(int argc, char const *argv[])
         std::cerr << "\rScanlines remaining: " << j << ' ' << std::flush;
         for (int i = 0; i < IMAGE_WIDTH; ++i)
         {
-            double r = double(i) / (IMAGE_WIDTH - 1);
-            double g = double(j) / (IMAGE_HEIGHT - 1);
-            double b = 0.25;
-
-            int ir = static_cast<int>(255.999 * r);
-            int ig = static_cast<int>(255.999 * g);
-            int ib = static_cast<int>(255.999 * b);
-
-            std::cout << ir << ' ' << ig << ' ' << ib << "\n";
+            Color pixcel_color = Color(double(i) / (IMAGE_WIDTH - 1),
+                                       double(j) / (IMAGE_HEIGHT - 1),
+                                       0.25);
+            write_color(std::cout, pixcel_color);
         }
     }
 
