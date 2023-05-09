@@ -11,6 +11,7 @@ int main(int argc, char const *argv[])
 
     for (int j = IMAGE_HEIGHT - 1; j >= 0; --j)
     {
+        std::cerr << "\rScanlines remaining: " << j << ' ' << std::flush;
         for (int i = 0; i < IMAGE_WIDTH; ++i)
         {
             double r = double(i) / (IMAGE_WIDTH - 1);
@@ -25,5 +26,6 @@ int main(int argc, char const *argv[])
         }
     }
 
+    std::cerr << "\nDone.\n";
     return 0;
 }
