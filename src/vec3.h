@@ -70,6 +70,11 @@ inline Vec3 cross(const Vec3 &u, const Vec3 &v)
         u.e_[0] * v.e_[1] - u.e_[1] * v.e_[0]);
 }
 
+inline Vec3 unit_vector(Vec3 v)
+{
+    return v / v.length();
+}
+
 using Point3 = Vec3;
 using Color = Vec3;
 
