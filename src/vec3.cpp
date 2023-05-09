@@ -1,11 +1,11 @@
 #include "vec3.h"
 #include <math.h>
 
-Vec3::Vec3() : e_{0, 0, 0}
+Vec3::Vec3()
 {
 }
 
-Vec3::Vec3(double e0, double e1, double e2) : e_{e0, 0e1, e2}
+Vec3::Vec3(double e0, double e1, double e2) : e_{e0, e1, e2}
 {
 }
 
