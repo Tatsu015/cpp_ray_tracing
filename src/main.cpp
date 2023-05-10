@@ -1,6 +1,14 @@
 #include <iostream>
 
 #include "color.h"
+#include "ray.h"
+
+Color ray_color(const Ray &r)
+{
+    Vec3 unit_dir = unit_vector(r.dir_);
+    double t = 0.5 * (unit_dir.y() + 1.0);
+    return (1 - t) * Color(1, 1, 1) + t * Color(0.5, 0.7, 1);
+}
 
 int main(int argc, char const *argv[])
 {
