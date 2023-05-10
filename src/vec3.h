@@ -6,7 +6,7 @@
 class Vec3
 {
 public:
-    double e_[3] = {0, 0, 0};
+    double e_[3];
 
 public:
     Vec3(double e0, double e1, double e2);
@@ -48,7 +48,7 @@ inline Vec3 operator*(const double t, const Vec3 &v)
 
 inline Vec3 operator*(const Vec3 &v, const double t)
 {
-    return v * t;
+    return Vec3(v.e_[0] * t, v.e_[1] * t, v.e_[2] * t);
 }
 
 inline Vec3 operator/(const Vec3 &v, const double t)
