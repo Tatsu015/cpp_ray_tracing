@@ -6,8 +6,8 @@
 class Ray
 {
 public:
-    Point3 org = {0, 0, 0};
-    Vec3 dir = {0, 0, 0};
+    Point3 org_ = {0, 0, 0};
+    Vec3 dir_ = {0, 0, 0};
 
 public:
     Ray();
@@ -16,13 +16,5 @@ public:
 
     Point3 at(const double t) const;
 };
-
-Ray::Ray(/* args */)
-{
-}
-
-Ray::~Ray()
-{
-}
 
 #endif
