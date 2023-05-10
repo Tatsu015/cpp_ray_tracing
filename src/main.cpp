@@ -35,8 +35,8 @@ int main(int argc, char const *argv[])
         std::cerr << "\rScanlines remaining: " << j << ' ' << std::flush;
         for (int i = 0; i < IMAGE_WIDTH; ++i)
         {
-            double u = i / (IMAGE_WIDTH - 1);
-            double v = j / (IMAGE_HEIGHT - 1);
+            double u = double(i) / (IMAGE_WIDTH - 1);
+            double v = double(j) / (IMAGE_HEIGHT - 1);
             Ray r(org, lower_left_corner + u * horizontal + v * vertical - org);
             Color pixcel_color = ray_color(r);
             write_color(std::cout, pixcel_color);
