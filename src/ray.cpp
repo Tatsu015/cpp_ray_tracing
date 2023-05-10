@@ -1,9 +1,5 @@
 #include "ray.h"
 
-Ray::Ray()
-{
-}
-
 Ray::Ray(const Point3 &org, const Vec3 &dir) : org_(org), dir_(dir)
 {
 }

@@ -10,7 +10,6 @@ public:
     Vec3 dir_ = {0, 0, 0};
 
 public:
-    Ray();
     Ray(const Point3 &org, const Vec3 &dir);
     ~Ray();
 
