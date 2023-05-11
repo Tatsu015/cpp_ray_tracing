@@ -3,11 +3,36 @@
 #include "color.h"
 #include "ray.h"
 
+bool hit_spere(const Point3 &center, const double radius, const Ray &r)
+{
+    // the answer of 2 dimensional equation is the intersection of circle and line
+    // D of this equation is a^2 - 4ac, so D =0 has 2 intersection.
+    Vec3 oc = r.org_ - center;
+    double a = dot(r.dir_, r.dir_);
+    double b = dot(oc, r.dir_);
+    double c = dot(oc, oc) - radius * radius;
+    double disc = b * b - a * c;
+
+    return (disc > 0);
+}
+
 Color ray_color(const Ray &r)
 {
+    Vec3 sphere_center = Vec3(0, 0, -1);
+    double radius = 0.5;
+    const Color RED = Color(1, 0, 0);
+    const Color WHITE = Color(1, 1, 1);
+    const Color LIGHT_BLUE = Color(0.5, 0.7, 1);
+
+    if (hit_spere(sphere_center, radius, r))
+    {
+        return RED;
+    }
+
     Vec3 unit_dir = unit_vector(r.dir_);
     double t = 0.5 * (unit_dir.y() + 1.0);
-    return (1 - t) * Color(1, 1, 1) + t * Color(0.5, 0.7, 1);
+    Vec3 gradation = (1 - t) * WHITE + t * LIGHT_BLUE;
+    return gradation;
 }
 
 int main(int argc, char const *argv[])
