@@ -38,7 +38,7 @@ inline Vec3 operator+(const Vec3 &u, const Vec3 &v)
 
 inline Vec3 operator-(const Vec3 &u, const Vec3 &v)
 {
-    return Vec3(u.e_[0] - v.e_[0], u.e_[1] - v.e_[1], u.e_[2] - u.e_[2]);
+    return Vec3(u.e_[0] - v.e_[0], u.e_[1] - v.e_[1], u.e_[2] - v.e_[2]);
 }
 
 inline Vec3 operator*(const double t, const Vec3 &v)
