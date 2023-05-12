@@ -24,16 +24,18 @@ virtual bool Sphere::hit(const Ray &r, const double t_min, const double t_max, H
         if (ans_min < t_max && ans_min > t_min)
         {
             rec.t = ans_min;
-            rec.p = r.at(ans_min);
-            rec.normal = (rec.p - center_) / radius_;
+            rec.p_ = r.at(ans_min);
+            Vec3 outward_normal = (rec.p_ - center_) / radius_;
+            rec.judje_face_normal(r, outward_normal);
             return true;
         }
         double ans_man = (-b + sqrt(disc)) / a;
         if (ans_max < t_max && ans_max > t_min)
         {
             rec.t = ans_max;
-            rec.p = r.at(ans_min);
-            rec.normal = (rec.p - center_) / radius_;
+            rec.p_ = r.at(ans_min);
+            Vec3 outward_normal = (rec.p_ - center_) / radius_;
+            rec.judje_face_normal(r, outward_normal);
             return true;
         }
     }
