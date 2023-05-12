@@ -20,7 +20,7 @@ double hit_sphere(const Point3 &center, const double radius, const Ray &r)
     }
     else
     {
-        return (-b + sqrt(disc)) / a;
+        return (-b - sqrt(disc)) / a;
     }
 
     return (disc > 0);
