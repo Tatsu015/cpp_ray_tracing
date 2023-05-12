@@ -3,7 +3,7 @@
 #include "color.h"
 #include "ray.h"
 
-bool hit_spere(const Point3 &center, const double radius, const Ray &r)
+bool hit_sphere(const Point3 &center, const double radius, const Ray &r)
 {
     // the answer of 2 dimensional equation is the intersection of circle and line
     // D of this equation is a^2 - 4ac, so D =0 has 2 intersection.
@@ -24,7 +24,7 @@ Color ray_color(const Ray &r)
     const Color WHITE = Color(1, 1, 1);
     const Color LIGHT_BLUE = Color(0.5, 0.7, 1);
 
-    if (hit_spere(sphere_center, radius, r))
+    if (hit_sphere(sphere_center, radius, r))
     {
         return RED;
     }
