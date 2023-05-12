@@ -1,9 +1,10 @@
 #include <iostream>
+#include <cmath>
 
 #include "color.h"
 #include "ray.h"
 
-bool hit_sphere(const Point3 &center, const double radius, const Ray &r)
+double hit_sphere(const Point3 &center, const double radius, const Ray &r)
 {
     // the answer of 2 dimensional equation is the intersection of circle and line
     // D of this equation is a^2 - 4ac, so D =0 has 2 intersection.
@@ -12,6 +13,15 @@ bool hit_sphere(const Point3 &center, const double radius, const Ray &r)
     double b = dot(oc, r.dir_);
     double c = dot(oc, oc) - radius * radius;
     double disc = b * b - a * c;
+
+    if (disc < 0)
+    {
+        return -1;
+    }
+    else
+    {
+        return (-b + sqrt(disc)) / a;
+    }
 
     return (disc > 0);
 }
@@ -24,14 +34,17 @@ Color ray_color(const Ray &r)
     const Color WHITE = Color(1, 1, 1);
     const Color LIGHT_BLUE = Color(0.5, 0.7, 1);
 
-    if (hit_sphere(sphere_center, radius, r))
+    double param = hit_sphere(sphere_center, radius, r);
+    if (param > 0.0)
     {
-        return RED;
+        Vec3 n = unit_vector(r.at(param) - sphere_center);
+        Color shade = 0.5 * Color(n.x() + 1, n.y() + 1, n.z() + 1);
+        return shade;
     }
 
     Vec3 unit_dir = unit_vector(r.dir_);
     double t = 0.5 * (unit_dir.y() + 1.0);
-    Vec3 gradation = (1 - t) * WHITE + t * LIGHT_BLUE;
+    Color gradation = (1 - t) * WHITE + t * LIGHT_BLUE;
     return gradation;
 }
 
