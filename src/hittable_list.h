@@ -1,12 +1,16 @@
 #ifndef HITTABLE_LIST_H
 #define HITTABLE_LIST_H
 
+#include <vector>
+#include <memory>
+
 #include "hittable.h"
 
 class HittableList : public : Hittable
 {
-private:
-    /* data */
+public:
+    std::vector<shared_ptr<hittable>> objects;
+
 public:
     HittableList();
     ~HittableList();
