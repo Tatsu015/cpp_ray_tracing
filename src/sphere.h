@@ -10,8 +10,8 @@ private:
     double radius_;
 
 public:
-    explicit Sphere(Point3 center, double radius) {}
-    virtual ~Sphere() {}
+    Sphere(Point3 center, double radius);
+    virtual ~Sphere();
     virtual bool hit(const Ray &r, const double t_min, const double t_max, HitRecord &rec);
 };
 

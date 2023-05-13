@@ -1,21 +1,23 @@
 #include "sphere.h"
 
-explicit Sphere::Sphere(Point3 center, double radius) : Hittable(), center_(center), radius_(radius)
+#include <cmath>
+
+Sphere::Sphere(Point3 center, double radius) : Hittable(), center_(center), radius_(radius)
 {
 }
 
-virtual ~Sphere::Sphere()
+Sphere::~Sphere()
 {
 }
 
-virtual bool Sphere::hit(const Ray &r, const double t_min, const double t_max, HitRecord &rec)
+bool Sphere::hit(const Ray &r, const double t_min, const double t_max, HitRecord &rec)
 {
     // the answer of 2 dimensional equation is the intersection of circle and line
     // D of this equation is a^2 - 4ac, so D =0 has 2 intersection.
     Vec3 oc = r.org_ - center_;
     double a = dot(r.dir_, r.dir_);
     double b = dot(oc, r.dir_);
-    double c = dot(oc, oc) - radius * radius;
+    double c = dot(oc, oc) - radius_ * radius_;
     double disc = b * b - a * c;
 
     if (disc > 0)
@@ -29,7 +31,7 @@ virtual bool Sphere::hit(const Ray &r, const double t_min, const double t_max, H
             rec.judje_face_normal(r, outward_normal);
             return true;
         }
-        double ans_man = (-b + sqrt(disc)) / a;
+        double ans_max = (-b + sqrt(disc)) / a;
         if (ans_max < t_max && ans_max > t_min)
         {
             rec.t = ans_max;
@@ -40,7 +42,4 @@ virtual bool Sphere::hit(const Ray &r, const double t_min, const double t_max, H
         }
     }
     return false;
-}
-
-return false;
 }

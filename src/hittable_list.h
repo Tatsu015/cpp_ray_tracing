@@ -6,19 +6,19 @@
 
 #include "hittable.h"
 
-class HittableList : public : Hittable
+class HittableList : public Hittable
 {
 public:
-    std::vector<std::shared_ptr<Hittable>> objects;
+    std::vector<std::shared_ptr<Hittable>> objects_;
 
 public:
-    HittableList();
+    HittableList(std::shared_ptr<Hittable> object);
     ~HittableList();
 
     void add(std::shared_ptr<Hittable> object);
     void clear();
 
-    bool hit(const Ray &r, const double t_min, const double t_max, HitRecord &rec) const;
+    virtual bool hit(const Ray &r, const double t_min, const double t_max, HitRecord &rec) const override;
 };
 
 #endif

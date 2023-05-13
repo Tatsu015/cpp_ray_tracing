@@ -6,10 +6,10 @@
 class HitRecord
 {
 public:
-    Point3 p_;
-    Vec3 normal_;
-    double t;
-    bool front_face_;
+    Point3 p_ = Point3(0, 0, 0);
+    Vec3 normal_ = Vec3(0, 0, 0);
+    double t = 0;
+    bool front_face_ = true;
 
 public:
     inline void judje_face_normal(const Ray &r, const Vec3 &outward_normal)
@@ -24,7 +24,7 @@ class Hittable
 public:
     explicit Hittable() {}
     virtual ~Hittable() {}
-    virtual bool hit(const Ray &r, const double t_min, const double t_max, HitRecord &rec) = 0;
+    virtual bool hit(const Ray &r, const double t_min, const double t_max, HitRecord &rec) const = 0;
 };
 
 #endif
