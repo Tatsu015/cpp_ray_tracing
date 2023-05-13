@@ -6,24 +6,6 @@
 
 double hit_sphere(const Point3 &center, const double radius, const Ray &r)
 {
-    // the answer of 2 dimensional equation is the intersection of circle and line
-    // D of this equation is a^2 - 4ac, so D =0 has 2 intersection.
-    Vec3 oc = r.org_ - center;
-    double a = dot(r.dir_, r.dir_);
-    double b = dot(oc, r.dir_);
-    double c = dot(oc, oc) - radius * radius;
-    double disc = b * b - a * c;
-
-    if (disc < 0)
-    {
-        return -1;
-    }
-    else
-    {
-        return (-b - sqrt(disc)) / a;
-    }
-
-    return (disc > 0);
 }
 
 Color ray_color(const Ray &r)

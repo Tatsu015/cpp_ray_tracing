@@ -9,19 +9,16 @@
 class HittableList : public : Hittable
 {
 public:
-    std::vector<shared_ptr<hittable>> objects;
+    std::vector<std::shared_ptr<Hittable>> objects;
 
 public:
     HittableList();
     ~HittableList();
+
+    void add(std::shared_ptr<Hittable> object);
+    void clear();
+
+    bool hit(const Ray &r, const double t_min, const double t_max, HitRecord &rec) const;
 };
-
-HittableList::HittableList(/* args */)
-{
-}
-
-HittableList::~HittableList()
-{
-}
 
 #endif
