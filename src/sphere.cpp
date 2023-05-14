@@ -10,7 +10,7 @@ Sphere::~Sphere()
 {
 }
 
-bool Sphere::hit(const Ray &r, const double t_min, const double t_max, HitRecord &rec)
+bool Sphere::hit(const Ray &r, const double t_min, const double t_max, HitRecord &rec) const
 {
     // the answer of 2 dimensional equation is the intersection of circle and line
     // D of this equation is a^2 - 4ac, so D =0 has 2 intersection.

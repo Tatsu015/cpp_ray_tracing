@@ -12,7 +12,7 @@ private:
 public:
     Sphere(Point3 center, double radius);
     virtual ~Sphere();
-    virtual bool hit(const Ray &r, const double t_min, const double t_max, HitRecord &rec);
+    virtual bool hit(const Ray &r, const double t_min, const double t_max, HitRecord &rec) const;
 };
 
 #endif
