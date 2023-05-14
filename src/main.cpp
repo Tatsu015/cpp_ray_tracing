@@ -3,12 +3,11 @@
 
 #include "color.h"
 #include "ray.h"
+#include "define.h"
+#include "hittable_list.h"
+#include "sphere.h"
 
-double hit_sphere(const Point3 &center, const double radius, const Ray &r)
-{
-}
-
-Color ray_color(const Ray &r)
+Color ray_color(const Ray &r, const Hittable &world)
 {
     Vec3 sphere_center = Vec3(0, 0, -1);
     double radius = 0.5;
@@ -16,11 +15,10 @@ Color ray_color(const Ray &r)
     const Color WHITE = Color(1, 1, 1);
     const Color LIGHT_BLUE = Color(0.5, 0.7, 1);
 
-    double param = hit_sphere(sphere_center, radius, r);
-    if (param > 0.0)
+    HitRecord rec;
+    if (world.hit(r, 0, INF, rec))
     {
-        Vec3 n = unit_vector(r.at(param) - sphere_center);
-        Color shade = 0.5 * Color(n.x() + 1, n.y() + 1, n.z() + 1);
+        Color shade = 0.5 * (rec.normal_ + 1.0);
         return shade;
     }
 
@@ -50,6 +48,10 @@ int main(int argc, char const *argv[])
     Vec3 focal_org = Vec3(0, 0, -focal_length);
     Vec3 lower_left_corner = org - horizontal / 2 - vertical / 2 + focal_org;
 
+    HittableList world;
+    world.add(std::make_shared<Sphere>(Point3(0, 0, -1), 0.5));
+    world.add(std::make_shared<Sphere>(Point3(0, -100.5, -1), 100));
+
     for (int j = IMAGE_HEIGHT - 1; j >= 0; --j)
     {
         std::cerr << "\rScanlines remaining: " << j << ' ' << std::flush;
@@ -59,7 +61,7 @@ int main(int argc, char const *argv[])
             double v = double(j) / (IMAGE_HEIGHT - 1);
             Ray r(org, lower_left_corner + u * horizontal + v * vertical - org);
             Color pixcel_color = ray_color(r);
-            write_color(std::cout, pixcel_color);
+            write_color(std::cout, pixcel_color, world);
         }
     }
 
