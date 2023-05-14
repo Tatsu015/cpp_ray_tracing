@@ -12,6 +12,7 @@ public:
     std::vector<std::shared_ptr<Hittable>> objects_;
 
 public:
+    HittableList();
     HittableList(std::shared_ptr<Hittable> object);
     ~HittableList();
 

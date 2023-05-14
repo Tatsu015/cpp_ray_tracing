@@ -9,16 +9,13 @@
 
 Color ray_color(const Ray &r, const Hittable &world)
 {
-    Vec3 sphere_center = Vec3(0, 0, -1);
-    double radius = 0.5;
-    const Color RED = Color(1, 0, 0);
     const Color WHITE = Color(1, 1, 1);
     const Color LIGHT_BLUE = Color(0.5, 0.7, 1);
 
     HitRecord rec;
     if (world.hit(r, 0, INF, rec))
     {
-        Color shade = 0.5 * (rec.normal_ + 1.0);
+        Color shade = 0.5 * (rec.normal_ + Vec3(1, 1, 1));
         return shade;
     }
 
@@ -60,8 +57,8 @@ int main(int argc, char const *argv[])
             double u = double(i) / (IMAGE_WIDTH - 1);
             double v = double(j) / (IMAGE_HEIGHT - 1);
             Ray r(org, lower_left_corner + u * horizontal + v * vertical - org);
-            Color pixcel_color = ray_color(r);
-            write_color(std::cout, pixcel_color, world);
+            Color pixcel_color = ray_color(r, world);
+            write_color(std::cout, pixcel_color);
         }
     }
 
