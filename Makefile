@@ -4,12 +4,12 @@ out:
 
 .PHONY:build
 build:
-	cmake --build /workspaces/cpp_ray_tracing/build --config Debug --target all --
+	cmake -B build -S src && cmake --build /workspaces/cpp_ray_tracing/build --config Debug --target all --
 
-.PHONY:dev
+.PHONY:build
 dev:
-	cmake --build /workspaces/cpp_ray_tracing/build --config Debug --target all -- && ./build/src/cpp_ray_tracing > out.ppm
+	cmake --build /workspaces/cpp_ray_tracing/build --config Debug --target all -- && ./build/cpp_ray_tracing > out.ppm
 
 .PHONY:clean
 clean:
-	cmake --build /workspaces/cpp_ray_tracing/build --config Debug --target clean --
+	rm -rf build && mkdir build

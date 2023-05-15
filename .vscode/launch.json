@@ -8,7 +8,7 @@
             "name": "(gdb) Launch",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/build/src/cpp_ray_tracing",
+            "program": "${workspaceFolder}/build/cpp_ray_tracing",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
