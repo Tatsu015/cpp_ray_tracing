@@ -1,6 +1,6 @@
 #include "camera.h"
+#include "define.h"
 
-static const double ASPECT_RATIO = 16.0 / 9.0;
 static const double VIEWPORT_HEIGHT = 2.0;
 static const double VIEWPORT_WIDTH = VIEWPORT_HEIGHT * ASPECT_RATIO;
 static const double FOCAL_LENGTH = 1.0;
