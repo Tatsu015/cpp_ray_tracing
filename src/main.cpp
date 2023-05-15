@@ -7,6 +7,7 @@
 #include "hittable_list.h"
 #include "sphere.h"
 #include "camera.h"
+#include "mathutil.h"
 
 Color ray_color(const Ray &r, const Hittable &world)
 {
@@ -30,6 +31,7 @@ int main(int argc, char const *argv[])
 {
     const int IMAGE_WIDTH = 384;
     const int IMAGE_HEIGHT = static_cast<int>(IMAGE_WIDTH / ASPECT_RATIO);
+    const int SAMPLE_PER_PIXCEL = 100;
 
     Camera camera;
 
@@ -46,11 +48,15 @@ int main(int argc, char const *argv[])
         std::cerr << "\rScanlines remaining: " << j << ' ' << std::flush;
         for (int i = 0; i < IMAGE_WIDTH; ++i)
         {
-            double u = double(i) / (IMAGE_WIDTH - 1);
-            double v = double(j) / (IMAGE_HEIGHT - 1);
-            Ray r = camera.get_ray(u, v);
-            Color pixcel_color = ray_color(r, world);
-            write_color(std::cout, pixcel_color);
+            Color pixcel_color(0, 0, 0);
+            for (int k = 0; k < SAMPLE_PER_PIXCEL; k++)
+            {
+                double u = (double(i) + random_double()) / (IMAGE_WIDTH - 1);
+                double v = (double(j) + random_double()) / (IMAGE_HEIGHT - 1);
+                Ray r = camera.get_ray(u, v);
+                pixcel_color += ray_color(r, world);
+            }
+            write_color(std::cout, pixcel_color, SAMPLE_PER_PIXCEL);
         }
     }
 
