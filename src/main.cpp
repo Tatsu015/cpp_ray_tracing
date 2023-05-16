@@ -10,16 +10,27 @@
 #include "mathutil.h"
 #include "vec3.h"
 
-Color ray_color(const Ray &r, const Hittable &world)
+static const Color WHITE = Color(1, 1, 1);
+static const Color LIGHT_BLUE = Color(0.5, 0.7, 1);
+static const int IMAGE_WIDTH = 384;
+static const int IMAGE_HEIGHT = static_cast<int>(IMAGE_WIDTH / ASPECT_RATIO);
+static const int SAMPLE_PER_PIXCEL = 100;
+static const int MAX_DEPTH = 50;
+
+Color ray_color(const Ray &r, const Hittable &world, const int depth)
 {
-    const Color WHITE = Color(1, 1, 1);
-    const Color LIGHT_BLUE = Color(0.5, 0.7, 1);
+    // in too many reflective, set black color and return
+    if (depth <= 0)
+    {
+        return Color(0, 0, 0);
+    }
 
     HitRecord rec;
     if (world.hit(r, 0, INF, rec))
     {
         Point3 target = rec.p() + rec.normal() + random_in_unit_sphere();
-        return 0.5 * ray_color(Ray(rec.p(), target - rec.p()), world);
+        Ray reflected = Ray(rec.p(), target - rec.p());
+        return 0.5 * ray_color(reflected, world, depth - 1);
     }
 
     Vec3 unit_dir = unit_vector(r.dir());
@@ -30,10 +41,6 @@ Color ray_color(const Ray &r, const Hittable &world)
 
 int main(int argc, char const *argv[])
 {
-    const int IMAGE_WIDTH = 384;
-    const int IMAGE_HEIGHT = static_cast<int>(IMAGE_WIDTH / ASPECT_RATIO);
-    const int SAMPLE_PER_PIXCEL = 100;
-
     Camera camera;
 
     std::cout << "P3\n"
@@ -55,7 +62,7 @@ int main(int argc, char const *argv[])
                 double u = (double(i) + random_double()) / (IMAGE_WIDTH - 1);
                 double v = (double(j) + random_double()) / (IMAGE_HEIGHT - 1);
                 Ray r = camera.get_ray(u, v);
-                pixcel_color += ray_color(r, world);
+                pixcel_color += ray_color(r, world, MAX_DEPTH);
             }
             write_color(std::cout, pixcel_color, SAMPLE_PER_PIXCEL);
         }
