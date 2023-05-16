@@ -17,11 +17,11 @@ Color ray_color(const Ray &r, const Hittable &world)
     HitRecord rec;
     if (world.hit(r, 0, INF, rec))
     {
-        Color shade = 0.5 * (rec.normal_ + Vec3(1, 1, 1));
+        Color shade = 0.5 * (rec.normal() + Vec3(1, 1, 1));
         return shade;
     }
 
-    Vec3 unit_dir = unit_vector(r.dir_);
+    Vec3 unit_dir = unit_vector(r.dir());
     double t = 0.5 * (unit_dir.y() + 1.0);
     Color gradation = (1 - t) * WHITE + t * LIGHT_BLUE;
     return gradation;

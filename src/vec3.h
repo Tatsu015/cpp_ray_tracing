@@ -5,16 +5,16 @@
 
 class Vec3
 {
-public:
+private:
     double e_[3];
 
 public:
     Vec3(double e0, double e1, double e2);
     ~Vec3();
 
-    const double x();
-    const double y();
-    const double z();
+    double x() const;
+    double y() const;
+    double z() const;
 
     Vec3 operator-() const;
     double operator[](int i) const;
@@ -28,27 +28,27 @@ public:
 
 inline std::ostream &operator<<(std::ostream &out, const Vec3 &v)
 {
-    return out << v.e_[0] << ' ' << v.e_[1] << ' ' << v.e_[2];
+    return out << v.x() << ' ' << v.y() << ' ' << v.z();
 }
 
 inline Vec3 operator+(const Vec3 &u, const Vec3 &v)
 {
-    return Vec3(u.e_[0] + v.e_[0], u.e_[1] + v.e_[1], u.e_[2] + v.e_[2]);
+    return Vec3(u.x() + v.x(), u.y() + v.y(), u.z() + v.z());
 }
 
 inline Vec3 operator-(const Vec3 &u, const Vec3 &v)
 {
-    return Vec3(u.e_[0] - v.e_[0], u.e_[1] - v.e_[1], u.e_[2] - v.e_[2]);
+    return Vec3(u.x() - v.x(), u.y() - v.y(), u.z() - v.z());
 }
 
 inline Vec3 operator*(const double t, const Vec3 &v)
 {
-    return Vec3(v.e_[0] * t, v.e_[1] * t, v.e_[2] * t);
+    return Vec3(v.x() * t, v.y() * t, v.z() * t);
 }
 
 inline Vec3 operator*(const Vec3 &v, const double t)
 {
-    return Vec3(v.e_[0] * t, v.e_[1] * t, v.e_[2] * t);
+    return Vec3(v.x() * t, v.y() * t, v.z() * t);
 }
 
 inline Vec3 operator/(const Vec3 &v, const double t)
@@ -58,17 +58,17 @@ inline Vec3 operator/(const Vec3 &v, const double t)
 
 inline double dot(const Vec3 &u, const Vec3 &v)
 {
-    return u.e_[0] * v.e_[0] +
-           u.e_[1] * v.e_[1] +
-           u.e_[2] * v.e_[2];
+    return u.x() * v.x() +
+           u.y() * v.y() +
+           u.z() * v.z();
 }
 
 inline Vec3 cross(const Vec3 &u, const Vec3 &v)
 {
     return Vec3(
-        u.e_[1] * v.e_[2] - u.e_[2] * v.e_[1],
-        u.e_[2] * v.e_[0] - u.e_[0] * v.e_[2],
-        u.e_[0] * v.e_[1] - u.e_[1] * v.e_[0]);
+        u.y() * v.z() - u.z() * v.y(),
+        u.z() * v.x() - u.x() * v.z(),
+        u.x() * v.y() - u.y() * v.x());
 }
 
 inline Vec3 unit_vector(Vec3 v)

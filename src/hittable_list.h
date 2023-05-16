@@ -8,7 +8,7 @@
 
 class HittableList : public Hittable
 {
-public:
+private:
     std::vector<std::shared_ptr<Hittable>> objects_;
 
 public:
@@ -18,6 +18,7 @@ public:
 
     void add(std::shared_ptr<Hittable> object);
     void clear();
+    std::vector<std::shared_ptr<Hittable>> objects() const { return objects_; }
 
     virtual bool hit(const Ray &r, const double t_min, const double t_max, HitRecord &rec) const override;
 };

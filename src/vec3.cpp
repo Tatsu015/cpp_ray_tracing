@@ -9,17 +9,17 @@ Vec3::~Vec3()
 {
 }
 
-const double Vec3::x()
+double Vec3::x() const
 {
     return e_[0];
 }
 
-const double Vec3::y()
+double Vec3::y() const
 {
     return e_[1];
 }
 
-const double Vec3::z()
+double Vec3::z() const
 {
     return e_[2];
 }
