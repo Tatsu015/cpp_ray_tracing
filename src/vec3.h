@@ -3,6 +3,8 @@
 
 #include <iostream>
 
+#include "mathutil.h"
+
 class Vec3
 {
 private:
@@ -11,6 +13,16 @@ private:
 public:
     Vec3(double e0, double e1, double e2);
     ~Vec3();
+
+    static Vec3 random()
+    {
+        return Vec3(random_double(), random_double(), random_double());
+    }
+
+    static Vec3 random(const double min, const double max)
+    {
+        return Vec3(random_double(min, max), random_double(min, max), random_double(min, max));
+    }
 
     double x() const;
     double y() const;
@@ -25,6 +37,19 @@ public:
     double length() const;
     double length_squared() const;
 };
+
+static Vec3 random_in_unit_sphere()
+{
+    while (true)
+    {
+        Vec3 p = Vec3::random(-1, 1);
+        if (p.length_squared() >= 1)
+        {
+            continue;
+        }
+        return p;
+    }
+}
 
 inline std::ostream &operator<<(std::ostream &out, const Vec3 &v)
 {

@@ -30,4 +30,11 @@ inline double random_double()
     return distribution(generator);
 }
 
+inline double random_double(const double min, const double max)
+{
+    static std::uniform_real_distribution<double> distribution(min, max);
+    static std::mt19937 generator;
+    return distribution(generator);
+}
+
 #endif

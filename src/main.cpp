@@ -8,6 +8,7 @@
 #include "sphere.h"
 #include "camera.h"
 #include "mathutil.h"
+#include "vec3.h"
 
 Color ray_color(const Ray &r, const Hittable &world)
 {
@@ -17,8 +18,8 @@ Color ray_color(const Ray &r, const Hittable &world)
     HitRecord rec;
     if (world.hit(r, 0, INF, rec))
     {
-        Color shade = 0.5 * (rec.normal() + Vec3(1, 1, 1));
-        return shade;
+        Point3 target = rec.p() + rec.normal() + random_in_unit_sphere();
+        return 0.5 * ray_color(Ray(rec.p(), target - rec.p()), world);
     }
 
     Vec3 unit_dir = unit_vector(r.dir());
