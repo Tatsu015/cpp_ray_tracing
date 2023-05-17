@@ -9,9 +9,10 @@ void write_color(std::ostream &out, Color pixcel_sum_color, const int sample_per
 
     const double scale = 1.0 / sample_per_pixcel;
 
-    r *= scale;
-    g *= scale;
-    b *= scale;
+    // gamma correction
+    r = sqrt(scale * r);
+    g = sqrt(scale * g);
+    b = sqrt(scale * b);
 
     out << static_cast<int>(256 * clamp(r, 0, 0.999)) << ' '
         << static_cast<int>(256 * clamp(g, 0, 0.999)) << ' '
