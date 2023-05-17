@@ -25,16 +25,12 @@ inline double clamp(const double x, const double min, const double max)
 
 inline double random_double()
 {
-    static std::uniform_real_distribution<double> distribution(0.0, 1.0);
-    static std::mt19937 generator;
-    return distribution(generator);
+    return rand() / (RAND_MAX + 1.0);
 }
 
 inline double random_double(const double min, const double max)
 {
-    static std::uniform_real_distribution<double> distribution(min, max);
-    static std::mt19937 generator;
-    return distribution(generator);
+    return min + (max - min) * random_double();
 }
 
 #endif
