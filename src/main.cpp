@@ -28,7 +28,7 @@ Color ray_color(const Ray &r, const Hittable &world, const int depth)
     HitRecord rec;
     if (world.hit(r, 0.001, INF, rec))
     {
-        Point3 target = rec.p() + rec.normal() + random_in_unit_sphere();
+        Point3 target = rec.p() + rec.normal() + random_unit_vector();
         Ray reflected = Ray(rec.p(), target - rec.p());
         return 0.5 * ray_color(reflected, world, depth - 1);
     }

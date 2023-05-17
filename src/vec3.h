@@ -38,18 +38,8 @@ public:
     double length_squared() const;
 };
 
-static Vec3 random_in_unit_sphere()
-{
-    while (true)
-    {
-        Vec3 p = Vec3::random(-1, 1);
-        if (p.length_squared() >= 1)
-        {
-            continue;
-        }
-        return p;
-    }
-}
+Vec3 random_in_unit_sphere();
+Vec3 random_unit_vector();
 
 inline std::ostream &operator<<(std::ostream &out, const Vec3 &v)
 {

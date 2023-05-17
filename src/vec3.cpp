@@ -75,3 +75,25 @@ double Vec3::length_squared() const
 {
     return e_[0] * e_[0] + e_[1] * e_[1] + e_[2] * e_[2];
 }
+
+Vec3 random_in_unit_sphere()
+{
+    while (true)
+    {
+        Vec3 p = Vec3::random(-1, 1);
+        if (p.length_squared() >= 1)
+        {
+            continue;
+        }
+        return p;
+    }
+}
+
+Vec3 random_unit_vector()
+{
+    double theta = random_double(0, 2 * PI);
+    double z = random_double(-1, 1);
+    double r = sqrt(1 - z * z);
+
+    return Vec3(r * cos(theta), r * sin(theta), z);
+}
