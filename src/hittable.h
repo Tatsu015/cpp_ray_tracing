@@ -1,13 +1,18 @@
 #ifndef HITTABLE_H
 #define HITTABLE_H
 
+#include <memory>
+
 #include "ray.h"
+
+class Material;
 
 class HitRecord
 {
 private:
     Point3 p_ = Point3(0, 0, 0);
     Vec3 normal_ = Vec3(0, 0, 0);
+    std::shared_ptr<Material> material_;
     double t_ = 0;
     bool front_face_ = true;
 
@@ -19,10 +24,12 @@ public:
     }
 
     double t() const { return t_; }
-    void setT(const double t) { t_ = t; }
+    void set_t(const double t) { t_ = t; }
     Vec3 p() const { return p_; }
-    void setP(const Vec3 p) { p_ = p; }
+    void set_p(const Vec3 p) { p_ = p; }
     Vec3 normal() const { return normal_; }
+    std::shared_ptr<Material> material() const { return material_; }
+    void set_material(std::shared_ptr<Material> material) { material_ = material; }
 };
 
 class Hittable

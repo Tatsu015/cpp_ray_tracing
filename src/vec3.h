@@ -11,6 +11,7 @@ private:
     double e_[3];
 
 public:
+    Vec3();
     Vec3(double e0, double e1, double e2);
     ~Vec3();
 
@@ -54,6 +55,14 @@ inline Vec3 operator+(const Vec3 &u, const Vec3 &v)
 inline Vec3 operator-(const Vec3 &u, const Vec3 &v)
 {
     return Vec3(u.x() - v.x(), u.y() - v.y(), u.z() - v.z());
+}
+
+inline Vec3 operator*(const Vec3 &u, const Vec3 &v)
+{
+    return Vec3(
+        u.x() * v.x(),
+        u.y() * v.y(),
+        u.z() * v.z());
 }
 
 inline Vec3 operator*(const double t, const Vec3 &v)

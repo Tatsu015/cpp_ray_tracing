@@ -9,6 +9,7 @@
 #include "camera.h"
 #include "mathutil.h"
 #include "vec3.h"
+#include "lambertian.h"
 
 static const Color WHITE = Color(1, 1, 1);
 static const Color LIGHT_BLUE = Color(0.5, 0.7, 1);
@@ -28,9 +29,13 @@ Color ray_color(const Ray &r, const Hittable &world, const int depth)
     HitRecord rec;
     if (world.hit(r, 0.001, INF, rec))
     {
-        Point3 target = rec.p() + rec.normal() + random_unit_vector();
-        Ray reflected = Ray(rec.p(), target - rec.p());
-        return 0.5 * ray_color(reflected, world, depth - 1);
+        Color attenuation;
+        Ray scattered;
+        if (rec.material()->scatter(r, rec, attenuation, scattered))
+        {
+            return attenuation * ray_color(scattered, world, depth - 1);
+        }
+        return Color(0, 0, 0);
     }
 
     Vec3 unit_dir = unit_vector(r.dir());
@@ -48,8 +53,17 @@ int main(int argc, char const *argv[])
               << "255\n";
 
     HittableList world;
-    world.add(std::make_shared<Sphere>(Point3(0, 0, -1), 0.5));
-    world.add(std::make_shared<Sphere>(Point3(0, -100.5, -1), 100));
+    world.add(std::make_shared<Sphere>(
+        Point3(0, 0, -1),
+        0.5,
+        std::make_shared<Lambertian>(
+            Color(0.5, 0.5, 0.5))));
+
+    world.add(std::make_shared<Sphere>(
+        Point3(0, -100.5, -1),
+        100,
+        std::make_shared<Lambertian>(
+            Color(0.5, 0.5, 0.5))));
 
     for (int j = IMAGE_HEIGHT - 1; j >= 0; --j)
     {

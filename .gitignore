@@ -47,3 +47,6 @@ build
 
 # generate file
 *.ppm
+
+#mac
+.DS_Store

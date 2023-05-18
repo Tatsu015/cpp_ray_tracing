@@ -2,7 +2,7 @@
 
 #include <cmath>
 
-Sphere::Sphere(Point3 center, double radius) : Hittable(), center_(center), radius_(radius)
+Sphere::Sphere(Point3 center, double radius, std::shared_ptr<Material> material) : Hittable(), center_(center), radius_(radius), material_(material)
 {
 }
 
@@ -25,19 +25,21 @@ bool Sphere::hit(const Ray &r, const double t_min, const double t_max, HitRecord
         double ans_min = (-b - sqrt(disc)) / a;
         if (ans_min < t_max && ans_min > t_min)
         {
-            rec.setT(ans_min);
-            rec.setP(r.at(ans_min));
+            rec.set_t(ans_min);
+            rec.set_p(r.at(ans_min));
             Vec3 outward_normal = (rec.p() - center_) / radius_;
             rec.judje_face_normal(r, outward_normal);
+            rec.set_material(material_);
             return true;
         }
         double ans_max = (-b + sqrt(disc)) / a;
         if (ans_max < t_max && ans_max > t_min)
         {
-            rec.setT(ans_max);
-            rec.setP(r.at(ans_min));
+            rec.set_t(ans_max);
+            rec.set_p(r.at(ans_min));
             Vec3 outward_normal = (rec.p() - center_) / radius_;
             rec.judje_face_normal(r, outward_normal);
+            rec.set_material(material_);
             return true;
         }
     }
