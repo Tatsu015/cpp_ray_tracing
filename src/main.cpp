@@ -10,6 +10,7 @@
 #include "mathutil.h"
 #include "vec3.h"
 #include "lambertian.h"
+#include "metal.h"
 
 static const Color WHITE = Color(1, 1, 1);
 static const Color LIGHT_BLUE = Color(0.5, 0.7, 1);
@@ -54,16 +55,13 @@ int main(int argc, char const *argv[])
 
     HittableList world;
     world.add(std::make_shared<Sphere>(
-        Point3(0, 0, -1),
-        0.5,
-        std::make_shared<Lambertian>(
-            Color(0.5, 0.5, 0.5))));
-
+        Point3(0, 0, -1), 0.5, std::make_shared<Lambertian>(Color(0.7, 0.3, 0.3))));
     world.add(std::make_shared<Sphere>(
-        Point3(0, -100.5, -1),
-        100,
-        std::make_shared<Lambertian>(
-            Color(0.5, 0.5, 0.5))));
+        Point3(0, -100.5, -1), 100, std::make_shared<Lambertian>(Color(0.8, 0.8, 0.0))));
+    world.add(std::make_shared<Sphere>(
+        Point3(1, 0, -1), 0.5, std::make_shared<Metal>(Color(.8, .6, .2))));
+    world.add(std::make_shared<Sphere>(
+        Point3(-1, 0, -1), 0.5, std::make_shared<Metal>(Color(.8, .8, .8))));
 
     for (int j = IMAGE_HEIGHT - 1; j >= 0; --j)
     {
