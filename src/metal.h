@@ -7,9 +7,10 @@ class Metal : public Material
 {
 private:
     Color albedo_;
+    double fizzy_;
 
 public:
-    Metal(const Color &albedo);
+    Metal(const Color &albedo, const double fizzy);
     ~Metal();
 
     virtual bool scatter(const Ray &r_in, const HitRecord &rec, Color &attenuation, Ray &scattered) const;
