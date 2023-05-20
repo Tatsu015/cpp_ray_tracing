@@ -15,7 +15,7 @@ public:
     virtual bool scatter(const Ray &r_in, const HitRecord &rec, Color &attenuation, Ray &scattered) const;
 
 private:
-    Vec3 reflect(const Vec3 &uv, const Vec3 &n, const double eta_in_over_eta_out) const;
+    Vec3 refract(const Vec3 &uv, const Vec3 &n, const double eta_in_over_eta_out) const;
 };
 
 #endif
