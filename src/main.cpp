@@ -11,6 +11,7 @@
 #include "vec3.h"
 #include "lambertian.h"
 #include "metal.h"
+#include "dielectic.h"
 
 static const Color WHITE = Color(1, 1, 1);
 static const Color LIGHT_BLUE = Color(0.5, 0.7, 1);
@@ -55,7 +56,7 @@ int main(int argc, char const *argv[])
 
     HittableList world;
     world.add(std::make_shared<Sphere>(
-        Point3(0, 0, -1), 0.5, std::make_shared<Lambertian>(Color(0.7, 0.3, 0.3))));
+        Point3(0, 0, -1), 0.5, std::make_shared<Dielectric>(1.3)));
     world.add(std::make_shared<Sphere>(
         Point3(0, -100.5, -1), 100, std::make_shared<Lambertian>(Color(0.8, 0.8, 0.0))));
     world.add(std::make_shared<Sphere>(
