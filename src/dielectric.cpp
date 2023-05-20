@@ -1,4 +1,4 @@
-#include "dielectic.h"
+#include "dielectric.h"
 
 Dielectric::Dielectric(const double refrective_index) : refrective_index_(refrective_index)
 {

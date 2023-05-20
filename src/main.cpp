@@ -11,7 +11,7 @@
 #include "vec3.h"
 #include "lambertian.h"
 #include "metal.h"
-#include "dielectic.h"
+#include "dielectric.h"
 
 static const Color WHITE = Color(1, 1, 1);
 static const Color LIGHT_BLUE = Color(0.5, 0.7, 1);
