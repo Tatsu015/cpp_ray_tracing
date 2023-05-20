@@ -1,4 +1,4 @@
-project(cpp_ray_tracing)
+project(cpp_ray_tracing CXX)
 
 cmake_minimum_required(VERSION 3.13)
 set (CMAKE_CXX_STANDARD 11)
