@@ -23,25 +23,33 @@ bool Sphere::hit(const Ray &r, const double t_min, const double t_max, HitRecord
     if (disc > 0)
     {
         double ans_min = (-b - sqrt(disc)) / a;
+
         if (ans_min < t_max && ans_min > t_min)
         {
             rec.set_t(ans_min);
             rec.set_p(r.at(ans_min));
-            Vec3 outward_normal = (rec.p() - center_) / radius_;
+
+            const Vec3 outward_normal = (rec.p() - center_) / radius_;
             rec.judje_face_normal(r, outward_normal);
             rec.set_material(material_);
+
             return true;
         }
+
         double ans_max = (-b + sqrt(disc)) / a;
+
         if (ans_max < t_max && ans_max > t_min)
         {
             rec.set_t(ans_max);
-            rec.set_p(r.at(ans_min));
-            Vec3 outward_normal = (rec.p() - center_) / radius_;
+            rec.set_p(r.at(ans_max));
+
+            const Vec3 outward_normal = (rec.p() - center_) / radius_;
             rec.judje_face_normal(r, outward_normal);
             rec.set_material(material_);
+
             return true;
         }
     }
+
     return false;
 }
