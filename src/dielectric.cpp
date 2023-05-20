@@ -11,6 +11,7 @@ Dielectric::~Dielectric()
 bool Dielectric::scatter(const Ray &r_in, const HitRecord &rec, Color &attenuation, Ray &scattered) const
 {
     double eta_in_over_eta_out = 0;
+    attenuation = Color(1, 1, 1);
     if (rec.front_face())
     {
         eta_in_over_eta_out = 1 / refrective_index_;
