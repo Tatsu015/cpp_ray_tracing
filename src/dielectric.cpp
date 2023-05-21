@@ -29,12 +29,19 @@ bool Dielectric::scatter(const Ray &r_in, const HitRecord &rec, Color &attenuati
     {
         Vec3 reflected = reflect(unit_dir, rec.normal());
         scattered = Ray(rec.p(), reflected);
+        return true;
     }
-    else
+
+    double reflect_prob = schlick(cos_theta, eta_in_over_eta_out);
+    if (random_double() > reflect_prob)
     {
-        Vec3 refracted = refract(unit_dir, rec.normal(), eta_in_over_eta_out);
-        scattered = Ray(rec.p(), refracted);
+        Vec3 reflected = reflect(unit_dir, rec.normal());
+        scattered = Ray(rec.p(), reflected);
+        return true;
     }
+
+    Vec3 refracted = refract(unit_dir, rec.normal(), eta_in_over_eta_out);
+    scattered = Ray(rec.p(), refracted);
 
     return true;
 }
@@ -51,4 +58,11 @@ Vec3 Dielectric::refract(const Vec3 &uv, const Vec3 &n, const double eta_in_over
 Vec3 Dielectric::reflect(const Vec3 &v, const Vec3 &n) const
 {
     return v - 2 * dot(v, n) * n;
+}
+
+double Dielectric::schlick(const double cos_theta, double refrective_index) const
+{
+    double r0 = (1 - refrective_index) / (1 + refrective_index);
+    r0 = r0 * r0;
+    return r0 + (1 - r0) * pow((1 - cos_theta), 5);
 }
