@@ -12,7 +12,7 @@ Camera::Camera(const double vfov, const double aspect_ratio)
     origin_ = Point3(0, 0, 0);
     horizontal_ = Vec3(viewport_width, 0, 0);
     vertical_ = Vec3(0, viewport_height, 0);
-    lower_left_corner_ = origin_ - horizontal_ / 2 - vertical_ / 2 + Vec3(0, 0, -focal_length);
+    lower_left_corner_ = origin_ - horizontal_ / 2 - vertical_ / 2 - Vec3(0, 0, focal_length);
 }
 
 Camera::~Camera()
