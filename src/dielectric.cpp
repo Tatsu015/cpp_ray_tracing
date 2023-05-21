@@ -33,7 +33,7 @@ bool Dielectric::scatter(const Ray &r_in, const HitRecord &rec, Color &attenuati
     }
 
     double reflect_prob = schlick(cos_theta, eta_in_over_eta_out);
-    if (random_double() > reflect_prob)
+    if (random_double() < reflect_prob)
     {
         Vec3 reflected = reflect(unit_dir, rec.normal());
         scattered = Ray(rec.p(), reflected);
