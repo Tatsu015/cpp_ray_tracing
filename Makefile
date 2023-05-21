@@ -4,7 +4,7 @@ out:
 
 .PHONY:build
 build:
-	cmake -B build -S src && cmake --build /workspaces/cpp_ray_tracing/build --config Debug --target all --
+	cmake --build /workspaces/cpp_ray_tracing/build --config Debug --target all --
 
 .PHONY:build
 dev:
