@@ -5,9 +5,9 @@
 
 #include "define.h"
 
-inline double degree_to_radians(double degress)
+inline double degrees_to_radians(double degrees)
 {
-    return degress / PI * 180;
+    return degrees * PI / 180;
 }
 
 inline double clamp(const double x, const double min, const double max)
