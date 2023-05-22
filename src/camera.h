@@ -12,7 +12,7 @@ private:
     Point3 lower_left_corner_;
 
 public:
-    Camera(const double vfov, const double aspect_ratio);
+    Camera(const Point3 lookfrom, const Point3 lookat, const Vec3 vup, double vfov, const double aspect_ratio);
     ~Camera();
 
     Ray get_ray(const double u, const double v) const;
