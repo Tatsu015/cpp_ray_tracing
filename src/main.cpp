@@ -50,29 +50,29 @@ Color ray_color(const Ray &r, const Hittable &world, const int depth)
 
 int main(int argc, char const *argv[])
 {
-    Camera camera(90, ASPECT_RATIO);
+    Camera camera(Point3(-2, 2, 1), Point3(0, 0, -1), Vec3(0, 1, 0), 90, ASPECT_RATIO);
 
     std::cout << "P3\n"
               << IMAGE_WIDTH << " " << IMAGE_HEIGHT << "\n"
               << "255\n";
 
-    double r = cos(PI / 4);
     HittableList world;
-    world.add(std::make_shared<Sphere>(
-        Point3(-r, 0, -1), r, std::make_shared<Lambertian>(Color(0, 0, 1))));
-    world.add(std::make_shared<Sphere>(
-        Point3(r, 0, -1), r, std::make_shared<Lambertian>(Color(1, 0, 0))));
+    // double r = cos(PI / 4);
+    // world.add(std::make_shared<Sphere>(
+    //     Point3(-r, 0, -1), r, std::make_shared<Lambertian>(Color(0, 0, 1))));
+    // world.add(std::make_shared<Sphere>(
+    //     Point3(r, 0, -1), r, std::make_shared<Lambertian>(Color(1, 0, 0))));
 
-    // world.add(std::make_shared<Sphere>(
-    //     Point3(0, 0, -1), 0.5, std::make_shared<Lambertian>(Color(0.1, 0.2, 0.5))));
-    // world.add(std::make_shared<Sphere>(
-    //     Point3(0, -100.5, -1), 100, std::make_shared<Lambertian>(Color(0.8, 0.8, 0.0))));
-    // world.add(std::make_shared<Sphere>(
-    //     Point3(1, 0, -1), 0.5, std::make_shared<Metal>(Color(0.8, 0.6, 0.2), 0.3)));
-    // world.add(std::make_shared<Sphere>(
-    //     Point3(-1, 0, -1), 0.5, std::make_shared<Dielectric>(1.5)));
-    // world.add(std::make_shared<Sphere>(
-    //     Point3(-1, 0, -1), -0.45, std::make_shared<Dielectric>(1.5)));
+    world.add(std::make_shared<Sphere>(
+        Point3(0, 0, -1), 0.5, std::make_shared<Lambertian>(Color(0.1, 0.2, 0.5))));
+    world.add(std::make_shared<Sphere>(
+        Point3(0, -100.5, -1), 100, std::make_shared<Lambertian>(Color(0.8, 0.8, 0.0))));
+    world.add(std::make_shared<Sphere>(
+        Point3(1, 0, -1), 0.5, std::make_shared<Metal>(Color(0.8, 0.6, 0.2), 0.3)));
+    world.add(std::make_shared<Sphere>(
+        Point3(-1, 0, -1), 0.5, std::make_shared<Dielectric>(1.5)));
+    world.add(std::make_shared<Sphere>(
+        Point3(-1, 0, -1), -0.45, std::make_shared<Dielectric>(1.5)));
     for (int j = IMAGE_HEIGHT - 1; j >= 0; --j)
     {
         std::cerr << "\rScanlines remaining: " << j << ' ' << std::flush;
