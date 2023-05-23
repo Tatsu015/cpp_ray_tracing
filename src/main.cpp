@@ -5,12 +5,12 @@
 #include "ray.h"
 #include "define.h"
 #include "hittable_list.h"
-#include "sphere.h"
+#include "Sphere.h"
 #include "camera.h"
 #include "mathutil.h"
 #include "vec3.h"
-#include "lambertian.h"
-#include "metal.h"
+#include "Lambertian.h"
+#include "Metal.h"
 #include "dielectric.h"
 
 static const Color WHITE = Color(1, 1, 1);
@@ -48,13 +48,68 @@ Color ray_color(const Ray &r, const Hittable &world, const int depth)
     return gradation;
 }
 
+HittableList random_scene()
+{
+    HittableList world;
+    const int MATERIAL_SQRT_COUNT = 3;
+
+    auto ground_material = std::make_shared<Lambertian>(Color(0.5, 0.5, 0.5));
+    world.add(std::make_shared<Sphere>(Point3(0, -1000, 0), 1000, ground_material));
+
+    for (int a = -MATERIAL_SQRT_COUNT; a < MATERIAL_SQRT_COUNT; a++)
+    {
+        for (int b = -MATERIAL_SQRT_COUNT; b < MATERIAL_SQRT_COUNT; b++)
+        {
+            auto choose_mat = random_double();
+            Point3 center(a + 0.9 * random_double(), 0.2, b + 0.9 * random_double());
+
+            if ((center - Vec3(4, 0.2, 0)).length() > 0.9)
+            {
+                std::shared_ptr<Material> Sphere_material;
+                if (choose_mat < 0.8)
+                {
+                    // diffuse
+                    auto albedo = Color::random() * Color::random();
+                    Sphere_material = std::make_shared<Lambertian>(albedo);
+                    world.add(std::make_shared<Sphere>(center, 0.2, Sphere_material));
+                }
+                else if (choose_mat < 0.95)
+                {
+                    // Metal
+                    auto albedo = Color::random(0.5, 1);
+                    auto fuzz = random_double(0, 0.5);
+                    Sphere_material = std::make_shared<Metal>(albedo, fuzz);
+                    world.add(std::make_shared<Sphere>(center, 0.2, Sphere_material));
+                }
+                else
+                {
+                    // glass
+                    Sphere_material = std::make_shared<Dielectric>(1.5);
+                    world.add(std::make_shared<Sphere>(center, 0.2, Sphere_material));
+                }
+            }
+        }
+    }
+
+    auto material1 = std::make_shared<Dielectric>(1.5);
+    world.add(std::make_shared<Sphere>(Point3(0, 1, 0), 1.0, material1));
+    auto material2 = std::make_shared<Lambertian>(Color(0.4, 0.2, 0.1));
+    world.add(std::make_shared<Sphere>(Point3(-4, 1, 0), 1.0, material2));
+    auto material3 = std::make_shared<Metal>(Color(0.7, 0.6, 0.5), 0.0);
+    world.add(std::make_shared<Sphere>(Point3(4, 1, 0), 1.0, material3));
+
+    return world;
+}
+
 int main(int argc, char const *argv[])
 {
-    Point3 lookfrom(3, 3, 2);
-    Point3 lookat(0, 0, -1);
+    Point3 lookfrom(13, 2, 3);
+    Point3 lookat(0, 0, 0);
     Vec3 vup(0, 1, 0);
-    auto dist_to_focus = (lookfrom - lookat).length();
-    auto aperture = 2.0;
+    auto dist_to_focus = 10.0;
+    auto aperture = 0.1;
+
+    HittableList world = random_scene();
 
     Camera camera(lookfrom, lookat, vup, 20, ASPECT_RATIO, aperture, dist_to_focus);
 
@@ -62,23 +117,6 @@ int main(int argc, char const *argv[])
               << IMAGE_WIDTH << " " << IMAGE_HEIGHT << "\n"
               << "255\n";
 
-    HittableList world;
-    // double r = cos(PI / 4);
-    // world.add(std::make_shared<Sphere>(
-    //     Point3(-r, 0, -1), r, std::make_shared<Lambertian>(Color(0, 0, 1))));
-    // world.add(std::make_shared<Sphere>(
-    //     Point3(r, 0, -1), r, std::make_shared<Lambertian>(Color(1, 0, 0))));
-
-    world.add(std::make_shared<Sphere>(
-        Point3(0, 0, -1), 0.5, std::make_shared<Lambertian>(Color(0.1, 0.2, 0.5))));
-    world.add(std::make_shared<Sphere>(
-        Point3(0, -100.5, -1), 100, std::make_shared<Lambertian>(Color(0.8, 0.8, 0.0))));
-    world.add(std::make_shared<Sphere>(
-        Point3(1, 0, -1), 0.5, std::make_shared<Metal>(Color(0.8, 0.6, 0.2), 0.3)));
-    world.add(std::make_shared<Sphere>(
-        Point3(-1, 0, -1), 0.5, std::make_shared<Dielectric>(1.5)));
-    world.add(std::make_shared<Sphere>(
-        Point3(-1, 0, -1), -0.45, std::make_shared<Dielectric>(1.5)));
     for (int j = IMAGE_HEIGHT - 1; j >= 0; --j)
     {
         std::cerr << "\rScanlines remaining: " << j << ' ' << std::flush;
