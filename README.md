@@ -6,6 +6,8 @@
 
 Generate ray tracing image by C++
 
+![out](https://github.com/Tatsu015/cpp_ray_tracing/assets/97239922/e48b87f2-db27-45bb-b9c3-4175b4b5cb2f)
+
 ## Usage
 
 ### build
