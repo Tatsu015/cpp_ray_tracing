@@ -93,6 +93,18 @@ Vec3 random_in_unit_sphere()
     }
 }
 
+Vec3 random_in_unit_disk()
+{
+    while (true)
+    {
+        Vec3 p = Vec3(random_double(-1, 1), random_double(-1, 1), 0);
+        if (p.length() < 1)
+        {
+            return p;
+        }
+    }
+}
+
 Vec3 random_unit_vector()
 {
     double theta = random_double(0, 2 * PI);

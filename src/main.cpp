@@ -50,7 +50,13 @@ Color ray_color(const Ray &r, const Hittable &world, const int depth)
 
 int main(int argc, char const *argv[])
 {
-    Camera camera(Point3(-2, 2, 1), Point3(0, 0, -1), Vec3(0, 1, 0), 90, ASPECT_RATIO);
+    Point3 lookfrom(3, 3, 2);
+    Point3 lookat(0, 0, -1);
+    Vec3 vup(0, 1, 0);
+    auto dist_to_focus = (lookfrom - lookat).length();
+    auto aperture = 2.0;
+
+    Camera camera(lookfrom, lookat, vup, 20, ASPECT_RATIO, aperture, dist_to_focus);
 
     std::cout << "P3\n"
               << IMAGE_WIDTH << " " << IMAGE_HEIGHT << "\n"

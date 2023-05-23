@@ -10,12 +10,16 @@ private:
     Vec3 horizontal_;
     Vec3 vertical_;
     Point3 lower_left_corner_;
+    Vec3 u_;
+    Vec3 v_;
+    Vec3 w_;
+    double lens_radius_;
 
 public:
-    Camera(const Point3 lookfrom, const Point3 lookat, const Vec3 vup, double vfov, const double aspect_ratio);
+    Camera(const Point3 lookfrom, const Point3 lookat, const Vec3 vup, double vfov, const double aspect_ratio, const double aperture, const double focus_dist);
     ~Camera();
 
-    Ray get_ray(const double u, const double v) const;
+    Ray get_ray(const double s, const double t) const;
 };
 
 #endif
