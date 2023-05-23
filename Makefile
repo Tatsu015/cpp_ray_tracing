@@ -1,18 +1,14 @@
 .PHONY:out
 out:
-	./build/cpp_ray_tracing > out.ppm
+	./build/src/cpp_ray_tracing > out.ppm
 
-.PHONY:build
-build:
-	cmake --build /workspaces/cpp_ray_tracing/build --config Debug --target all --
-
-.PHONY:dev
-dev:
-	cmake --build /workspaces/cpp_ray_tracing/build --config Debug --target all --
+.PHONY:build_dev
+build_dev:
+	cd build && cmake -DCMAKE_BUILD_TYPE=Debug .. && make
 
 .PHONY:build_release
 build_release:
-	cmake -B build -S src && cmake --build /workspaces/cpp_ray_tracing/build --config Release --target all --
+	cd build && cmake -DCMAKE_BUILD_TYPE=Release .. && make
 
 .PHONY:clean
 clean:
